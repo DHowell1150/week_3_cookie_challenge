@@ -8,4 +8,9 @@ class ApplicationController < ActionController::Base
   def current_admin?
     current_user && current_user.admin?
   end
+
+  # cookies[:key ] = {
+  #   location: params[:location],
+  #   expires: 20.years.from_now
+  # }
 end

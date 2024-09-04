@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   end
 
   def login
+    location_cookie = {  }
+    location_cookie[:location] = params[:location]
     user = User.find_by(username: params[:username])
     if user.authenticate(params[:password])
       session[:user_id] = user.id
