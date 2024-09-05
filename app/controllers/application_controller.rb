@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  # cookies.signed.permanent[:location] = params[:location]
   # cookies[:key ] = {
   #   location: params[:location],
   #   expires: 20.years.from_now

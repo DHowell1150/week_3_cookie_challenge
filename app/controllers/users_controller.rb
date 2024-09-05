@@ -5,9 +5,13 @@ class UsersController < ApplicationController
 
   def create
     new_user = User.create(user_params)
-    session[:user_id] = new_user.id
-    flash[:success] = "Welcome, #{new_user.username}!"
-    redirect_to root_path
+    if new_user.save
+      session[:user_id] = new_user.id
+      flash[:success] = "Welcome, #{new_user.username}!"
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def login_form
@@ -20,6 +24,8 @@ class UsersController < ApplicationController
     if user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.username}!"
+      cookies.signed.permanent[:location] = params[:location]
+
       if user.admin?
         redirect_to admin_dashboard_path
       else
